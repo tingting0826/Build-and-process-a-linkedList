@@ -20,13 +20,12 @@ private:
    int population;
 public:
    Country();
-   Country(char inputStr[3], string inputName, string inputCapital, int inputPopulation);
-   // destrctor?
+   Country(char *inputStr, string inputName, string inputCapital, int inputPopulation);
    // setter
-   void setCode(char inputChar[3]);
-   void setName(string inputName);
-   void setCapital(string inputCapital);
-   void setPopulation(int population);
+   void setCode(const char *inputChar);
+   void setName(const string inputName);
+   void setCapital(const string inputCapital);
+   void setPopulation(const int population);
    // getter
    char* getCode();
    string getName();
