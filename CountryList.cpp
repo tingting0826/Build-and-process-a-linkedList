@@ -3,6 +3,7 @@
 #include <iomanip>   // For setw()
 #include <cstring>   // For strcmp()
 #include "CountryList.h"
+#include <string>
 
 using namespace std;
 
@@ -42,10 +43,10 @@ void CountryList::displayList() const
    while (nodePtr)
    {
       // Display the value in this node in columns.
-      cout << left << setw(6)   << nodePtr->country.code
-           << setw(20)          << nodePtr->country.name
-           << setw(15)          << nodePtr->country.capital
-           << right << setw(15) << nodePtr->country.population << endl;
+      cout << left << setw(6)   << nodePtr->country.getCode()
+      << setw(20)          << nodePtr->country.getName()
+      << setw(15)          << nodePtr->country.getCapital()
+           << right << setw(15) << nodePtr->country.getPopulation() << endl;
 
       // Move to the next node.
       nodePtr = nodePtr->next;
@@ -68,7 +69,7 @@ bool CountryList::searchNode(Country &nodeData)
    nodePtr = head;
 
    // Skip all nodes that doesn't matches code of nodeData
-   while (nodePtr != NULL && strcmp(nodePtr->country.code, nodeData.code) != 0)
+   while (nodePtr != NULL && strcmp(nodePtr->country.getCode(), nodeData.getCode()) != 0)
    {
       // Move to the next node
       nodePtr = nodePtr->next;
@@ -105,7 +106,7 @@ void CountryList::insertNode(Country countryIn)
    previousNode = NULL;
 
    // Skip all nodes whose value is less than code.
-   while (nodePtr != NULL && strcmp(nodePtr->country.code, countryIn.code)<0)
+   while (nodePtr != NULL && strcmp(nodePtr->country.getCode(), countryIn.getCode())<0)
    {
       previousNode = nodePtr;
       nodePtr = nodePtr->next;
@@ -147,7 +148,7 @@ bool CountryList::deleteNode(Country &nodeData)
    previousNode = NULL;
 
    // Skip all nodes whose code is not equal to the code pointed by pDeleteCode.
-   while (nodePtr != NULL && strcmp(nodePtr->country.code, nodeData.code) != 0)
+   while (nodePtr != NULL && strcmp(nodePtr->country.getCode(), nodeData.getCode()) != 0)
    {
       previousNode = nodePtr;
       nodePtr = nodePtr->next;

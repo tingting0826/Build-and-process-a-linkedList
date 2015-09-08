@@ -3,17 +3,10 @@
 #define COUNTRYLIST_H
 
 #include <string>
+#include "Country.h"
+
 using namespace std;
 
-const int COUNTRY_CODE_SIZE = 3; // 2 + \0
-
-struct Country
-{
-   char code[COUNTRY_CODE_SIZE];
-   string name;
-   string capital;
-   int population;
-};
 
 class CountryList
 {

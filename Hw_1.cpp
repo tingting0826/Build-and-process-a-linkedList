@@ -65,10 +65,10 @@ int main()
 void displayCountry(Country showCountry)
 {
    // Display Country Data
-   cout << showCountry.code << "; "
-        << showCountry.name << "; "
-        << showCountry.capital << "; "
-        << showCountry.population;
+   cout << showCountry.getCode() << "; "
+        << showCountry.getName() << "; "
+        << showCountry.getCapital() << "; "
+        << showCountry.getPopulation();
 }
 
 //**************************************************
@@ -102,19 +102,19 @@ bool readCountries(CountryList *list)
    while (getline(inFile, readStr))  // get Country's Code
    {
         // finish processing Country's Code
-        strcpy(readCountry.code, removeTrailingWhiteSpace(readStr).c_str());
+        strcpy(readCountry.getCode(), removeTrailingWhiteSpace(readStr).c_str());
 
         // read and process Country's name
         getline(inFile, readStr);
-        readCountry.name = removeTrailingWhiteSpace(readStr);
+      readCountry.setName(removeTrailingWhiteSpace(readStr));
 
         // read and process Country's capital
         getline(inFile, readStr);
-        readCountry.capital = removeTrailingWhiteSpace(readStr);
+        readCountry.setCapital(removeTrailingWhiteSpace(readStr));
 
         // read and process Country's population
         getline(inFile, readStr);
-        readCountry.population = atoi(readStr.c_str());
+        readCountry.setPopulation(atoi(readStr.c_str()));
 
         list->insertNode(readCountry);
         empty = false;
@@ -163,9 +163,9 @@ void searchManager(CountryList *list)
 
    while (cout << search_prompt, cin >> input, input != "QUIT")
    {
-       strcpy(searchCountry.code, input.c_str());
+       strcpy(searchCountry.getCode(), input.c_str());
        if (!list->searchNode(searchCountry))
-          cout << "Search for " << searchCountry.code << " not found.\n";
+          cout << "Search for " << searchCountry.getCode() << " not found.\n";
        else
        {
           cout << "Country found: ";
@@ -194,9 +194,9 @@ void deleteManager(CountryList *list)
 
    while(cout << delete_prompt, cin >> input, input != "QUIT")
    {
-      strcpy(delCountry.code, input.c_str());
+      strcpy(delCountry.getCode(), input.c_str());
       if (!list->deleteNode(delCountry))
-         cout << "Country, " << delCountry.code << ", was not deleted because it was not found!\n";
+         cout << "Country, " << delCountry.getCode()<< ", was not deleted because it was not found!\n";
       else
       {
          cout << "Country Info that was deleted: ";
