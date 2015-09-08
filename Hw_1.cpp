@@ -7,8 +7,8 @@
  --> Create a second linked list
  --> Display the second linked list
 
- Name:Tingting Wang
- IDE:XCODE
+ Name:
+ IDE:
 */
 
 
@@ -92,7 +92,7 @@ bool readCountries(CountryList *list)
 
    // Open file to read, if couldn't open, display error
    // and exit with false
-   inFile.open("/Users/TingtingWang/XcodeProjects/Git_Repo/Build and process a linkedList/countries.txt");
+   inFile.open("Countries.txt");
    if (!inFile)
    {
       cout << "Error opening countries.txt!\n";
@@ -102,11 +102,11 @@ bool readCountries(CountryList *list)
    while (getline(inFile, readStr))  // get Country's Code
    {
         // finish processing Country's Code
-        readCountry.setCode(removeTrailingWhiteSpace(readStr).c_str());
+        strcpy(readCountry.getCode(), removeTrailingWhiteSpace(readStr).c_str());
 
         // read and process Country's name
         getline(inFile, readStr);
-        readCountry.setName(removeTrailingWhiteSpace(readStr));
+      readCountry.setName(removeTrailingWhiteSpace(readStr));
 
         // read and process Country's capital
         getline(inFile, readStr);
@@ -137,7 +137,7 @@ bool readCountries(CountryList *list)
 //**************************************************
 string removeTrailingWhiteSpace(string str)
 {
-   int i = int(str.length() - 1);  // zero based
+   int i = str.length() - 1;  // zero based
    while (str[i] == '\t' || str[i] == '\n' || str[i] == ' ' || str[i] == '\r')
    {
       str.erase(i, 1);
@@ -163,7 +163,7 @@ void searchManager(CountryList *list)
 
    while (cout << search_prompt, cin >> input, input != "QUIT")
    {
-       searchCountry.setCode(input.c_str());
+       strcpy(searchCountry.getCode(), input.c_str());
        if (!list->searchNode(searchCountry))
           cout << "Search for " << searchCountry.getCode() << " not found.\n";
        else
