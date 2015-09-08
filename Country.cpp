@@ -17,7 +17,7 @@ Country::Country()
    
 }
 
-Country::Country(char inputStr[3], string inputName, string inputCapital, int inputPopulation)
+Country::Country(char *inputStr, string inputName, string inputCapital, int inputPopulation)
 {
    strcpy(code, inputStr);
    name = inputName;
@@ -26,27 +26,27 @@ Country::Country(char inputStr[3], string inputName, string inputCapital, int in
    
 }
 
-void Country::setCode(char inputChar[3])
+void Country::setCode(const char *inputChar)
 {
    strcpy(code, inputChar);
 }
 
-void Country::setName(string inputName)
+void Country::setName(const string inputName)
 {
    name = inputName;
 }
 
-void Country::setCapital(string inputCapital)
+void Country::setCapital(const string inputCapital)
 {
    capital = inputCapital;
 }
 
-void Country::setPopulation(int inputPopuation)
+void Country::setPopulation(const int inputPopuation)
 {
    population = inputPopuation;
 }
 
-char* Country::getCode()
+char* Country::getCode() 
 {
    return code;
 }
@@ -61,7 +61,7 @@ string Country::getCapital()
    return capital;
 }
 
-int Country::getPopulation()
+int Country::getPopulation() 
 {
    return population;
 }
