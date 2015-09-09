@@ -26,6 +26,12 @@ void searchManager(CountryList *list);
 void deleteManager(CountryList *list);
 void displayCountry(Country showCountry);
 string removeTrailingWhiteSpace(string str);
+void printCount(CountryList *list);
+void showOption();
+void menuMenager(CountryList *list);
+void deleteCodeA(CountryList *list);
+bool quitString(string inputString);
+void printCountry(CountryList *list);
 
 int main()
 {
@@ -40,18 +46,8 @@ int main()
    // Display link list in CountryList object.
    list->displayList();
 
-   // Search for country in CountryList object.
-   searchManager(list);
+   menuMenager(list);
 
-   // Delete countries in CountryList object.
-   deleteManager(list);
-   list->displayList();
-
-   // YOUR TASK ==================================
-   // call more functions below
-
-
-   // ================================================
    delete list;
 
    return 0;
@@ -161,9 +157,14 @@ void searchManager(CountryList *list)
    string input;
    const string search_prompt = "[SEARCH COUNTRY] Please enter a code for a country:\n";
 
-   while (cout << search_prompt, cin >> input, input != "QUIT")
+   while (cout << search_prompt, cin >> input)
    {
-       searchCountry.setCode(input.c_str());
+       if (quitString(input))
+       {
+          return;
+       }
+      input = toupper(input[0]) + toupper(input[1]);
+      searchCountry.setCode(input.c_str());
        if (!list->searchNode(searchCountry))
           cout << "Search for " << searchCountry.getCode() << " not found.\n";
        else
@@ -192,9 +193,15 @@ void deleteManager(CountryList *list)
    Country delCountry;
    const string delete_prompt = "[DELETE COUNTRY] Please enter a code for a country [QUIT to stop]:\n";
 
-   while(cout << delete_prompt, cin >> input, input != "QUIT")
+   while(cout << delete_prompt, cin >> input)
    {
-      strcpy(delCountry.getCode(), input.c_str());
+      if(quitString(input))
+      {
+         return;
+      }
+      
+      input = toupper(input[0]) + toupper(input[1]);
+      delCountry.setCode(input.c_str());
       if (!list->deleteNode(delCountry))
          cout << "Country, " << delCountry.getCode()<< ", was not deleted because it was not found!\n";
       else
@@ -204,4 +211,77 @@ void deleteManager(CountryList *list)
          cout << ".\n";
       }
    }
+}
+
+void printCount(CountryList *list)
+{
+   cout << "Current count is " << list->getCount() << endl;
+}
+
+void showOption()
+{
+   cout << "S - search country by code" << endl;
+   cout << "D - delete country by code" << endl;
+   cout << "C - display the number of coutries in the list" << endl;
+   cout << "A - delete all countries whose capital contains the letter ‘a’ or ‘A’" << endl;
+   cout << "P - diaplay country list" << endl;
+   cout << "Q - quit" << endl;
+}
+
+void menuMenager(CountryList *list)
+{
+   cout << "Welcome! Please choose your option: " << endl;
+   char option;
+   while(toupper(option)!= 'Q')
+   {
+      showOption();
+      cin >> option;
+      switch(toupper(option))
+      {
+         case 'S':
+            // Search for country in CountryList object.
+            searchManager(list);
+            break;
+         case 'P':
+            printCountry(list);
+            break;
+         case 'D':
+            deleteManager(list);
+            break;
+         case 'C':
+            printCount(list);
+            break;
+         case 'A':
+            deleteCodeA(list);
+            break;
+         case 'Q':
+            cout << "Thank you for using our program!" << endl;
+            return;
+         default:
+            cout << "Invalid input!" << endl;
+      }
+   }
+   
+}
+
+void deleteCodeA(CountryList *list)
+{
+   for (int i = 0; i < list->getCount(); ++i)
+   {
+   }
+}
+
+bool quitString(string input)
+{
+   if (input == "quit" || input == "QUIT")
+   {
+      return true;
+   }
+   
+   return false;
+}
+
+void printCountry(CountryList *list)
+{
+   list->displayList();
 }

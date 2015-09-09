@@ -31,8 +31,10 @@ public:
    // Linked list operations
    void insertNode(Country countryIn);
    bool deleteNode(Country &countryData);
+   bool deleteANode(char codeChar);
    bool searchNode(Country &countryData);
    void displayList() const;
+   int getCount();
 
 };
 #endif
