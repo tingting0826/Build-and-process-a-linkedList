@@ -29,7 +29,7 @@ string removeTrailingWhiteSpace(string str);
 void printCount(CountryList *list);
 void showOption();
 void menuMenager(CountryList *list);
-void deleteCodeA(CountryList *list);
+void deleteCodeA(CountryList *list, char deleteChar);
 bool quitString(string inputString);
 void printCountry(CountryList *list);
 
@@ -163,7 +163,8 @@ void searchManager(CountryList *list)
        {
           return;
        }
-      input = toupper(input[0]) + toupper(input[1]);
+      input[0] = toupper(input[0]);
+      input[1] = toupper(input[1]);
       searchCountry.setCode(input.c_str());
        if (!list->searchNode(searchCountry))
           cout << "Search for " << searchCountry.getCode() << " not found.\n";
@@ -200,8 +201,8 @@ void deleteManager(CountryList *list)
          return;
       }
       
-      input = toupper(input[0]) + toupper(input[1]);
-      delCountry.setCode(input.c_str());
+      input[0] = toupper(input[0]);
+      input[1] = toupper(input[1]);      delCountry.setCode(input.c_str());
       if (!list->deleteNode(delCountry))
          cout << "Country, " << delCountry.getCode()<< ", was not deleted because it was not found!\n";
       else
@@ -224,7 +225,7 @@ void showOption()
    cout << "D - delete country by code" << endl;
    cout << "C - display the number of coutries in the list" << endl;
    cout << "A - delete all countries whose capital contains the letter ‘a’ or ‘A’" << endl;
-   cout << "P - diaplay country list" << endl;
+   cout << "P - display country list" << endl;
    cout << "Q - quit" << endl;
 }
 
@@ -252,7 +253,7 @@ void menuMenager(CountryList *list)
             printCount(list);
             break;
          case 'A':
-            deleteCodeA(list);
+            deleteCodeA(list, 'A');
             break;
          case 'Q':
             cout << "Thank you for using our program!" << endl;
@@ -264,11 +265,9 @@ void menuMenager(CountryList *list)
    
 }
 
-void deleteCodeA(CountryList *list)
+void deleteCodeA(CountryList *list, char deleteChar)
 {
-   for (int i = 0; i < list->getCount(); ++i)
-   {
-   }
+   list->deleteCharNode(deleteChar);
 }
 
 bool quitString(string input)

@@ -107,19 +107,8 @@ void CountryList::insertNode(Country countryIn)
       previousNode = nodePtr;
       nodePtr = nodePtr->next;
    }
-
-   // If the new node is to be the 1st in the list,
-   // insert it before all other nodes.
-//   if (previousNode == head)
-//   {
-//      head->next = newNode;
-//      newNode->next = nodePtr;
-//   }
-//   else  // Otherwise insert after the previous node.
-//   {
-      previousNode->next = newNode;
-      newNode->next = nodePtr;
-   //}
+   previousNode->next = newNode;
+   newNode->next = nodePtr;
    count++;
 }
 
@@ -153,27 +142,15 @@ bool CountryList::deleteNode(Country &nodeData)
    // If node-to-delete not found OR no nodes
    if (!nodePtr)
       return false;
-
-//   // Determine if the first node is the one
-//   if (!previousNode)
-//   {
-//      nodeData = head->country;     // return the deleted data
-//      nodePtr = head->next;
-//      delete head;
-//      head = nodePtr;
-//   }
-//   else
-//   {
-//      // otherwise (node-to-delete found & not first node)
-      nodeData = nodePtr->country;  // return the deleted data
-      previousNode->next = nodePtr->next;
-      delete nodePtr;
-   //}
+   
+   nodeData = nodePtr->country;  // return the deleted data
+   previousNode->next = nodePtr->next;
+   delete nodePtr;
    count--;
    return true;
 }
 
-bool CountryList::deleteANode(char codeChar)
+void CountryList::deleteCharNode(char codeChar)
 {
    ListNode *nodePtr;       // To traverse the list
    ListNode *previousNode;  // To point to the previous node
@@ -183,24 +160,28 @@ bool CountryList::deleteANode(char codeChar)
    previousNode = head;
    
    codeChar = toupper(codeChar);
+
    
-   // Skip all nodes whose code is not equal to the code pointed by pDeleteCode.
-   while (nodePtr != NULL && nodePtr->country.getCode()!= codeChar && nodePtr->country.getCode()!= codeChar)
+   while(nodePtr != NULL)
    {
-      previousNode = nodePtr;
-      nodePtr = nodePtr->next;
+      string codeString = nodePtr->country.getCode();
+      char char1 = codeString[0];
+      char char2 = codeString[1];
+      // Skip all nodes whose code is not equal to the code pointed by pDeleteCode.
+      if (char1 != codeChar && char2 != codeChar)
+      {
+         previousNode = nodePtr;
+         nodePtr = nodePtr->next;
+      }
+      
+      else
+      {
+         previousNode->next = nodePtr->next;
+         delete nodePtr;
+         nodePtr = previousNode->next;
+         count--;
+      }
    }
-   
-   // If node-to-delete not found OR no nodes
-   if (!nodePtr)
-      return false;
-   
-   nodeData = nodePtr->country;  // return the deleted data
-   previousNode->next = nodePtr->next;
-   delete nodePtr;
-   count--;
-   
-   return true;
 }
 //**************************************************
 // Destructor                                      *
